@@ -41,16 +41,19 @@ The 3rd byte is likely responsible for turning the coffee machine on, since it's
 ### Power off message
 
 `D5 55 00 01 02 00 02 01 00 00 1D 3B`
+`D5 55 00 01 00 00 03 01 00 00 20 04` //EP2231
 
 When sent, the mainboard proceeds to shut down the machine. The display unit goes to sleep after powering off.
 
 ### Status request message
 
 `D5 55 00 01 02 00 02 00 00 00 11 36`
+`D5 55 00 01 00 00 03 00 00 00 2C 09` //EP2231
 
 ### Play/Pause button message
 
 `D5 55 00 01 02 00 02 00 00 01 19 32`
+`D5 55 00 01 00 00 03 00 00 01 24 0D` //EP2231
 
 ### Drink selection
 

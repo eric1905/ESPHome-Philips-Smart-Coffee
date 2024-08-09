@@ -138,6 +138,26 @@ namespace esphome
                     {
                         update_state(state_cappuccino_brewing);
                     }
+#elif defined(PHILIPS_EP2231)
+                    if (is_play_pause_blinking)
+                    {
+                        if (data[9] == led_second)
+                        {
+                            update_state(state_ground_cappuccino_selected);
+                        }
+                        else if (data[11] == led_off && show_size_changed_recently)
+                        {
+                            update_state(state_cappuccino_programming_mode);
+                        }
+                        else
+                        {
+                            update_state(state_cappuccino_selected);
+                        }
+                    }
+                    else
+                    {
+                        update_state(state_cappuccino_brewing);
+                    }
 #elif defined(PHILIPS_EP3243)
                     if (is_play_pause_blinking)
                     {

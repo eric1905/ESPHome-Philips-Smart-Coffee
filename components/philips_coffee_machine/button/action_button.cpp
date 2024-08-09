@@ -100,6 +100,17 @@ namespace esphome
                     action = PLAY_PAUSE;
                 }
 #endif
+#ifdef PHILIPS_EP2231
+                // Cappuccino
+                if (action == SELECT_CAPPUCCINO || action == MAKE_CAPPUCCINO)
+                {
+                    write_array(command_press_4);
+                    if (action == SELECT_CAPPUCCINO)
+                        return;
+                    delay(BUTTON_SEQUENCE_DELAY);
+                    action = PLAY_PAUSE;
+                }
+#endif
 #ifdef PHILIPS_EP2235
                 // Cappuccino
                 if (action == SELECT_CAPPUCCINO || action == MAKE_CAPPUCCINO)

@@ -17,6 +17,7 @@ CONF_POWER_MESSAGE_REPETITIONS = "power_message_repetitions"
 CONF_COMMAND_SET = "model"
 COMMAND_SETS = {
     "EP_2220": "PHILIPS_EP2220",
+    "EP_2231": "PHILIPS_EP2231",
     "EP_2235": "PHILIPS_EP2235",
     "EP_3243": "PHILIPS_EP3243",
     # Note that the EP3243 and EP3246 are identical except for cosmetic differences
