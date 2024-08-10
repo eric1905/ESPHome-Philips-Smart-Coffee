@@ -12,7 +12,7 @@ namespace esphome
         static const char *TAG = "philips_coffee_machine";
         char outBuffer[50];
 
-        void btox(char *xp, const char *bb, int n) 
+        void btox(char *xp, const uint8_t *bb, int n) 
         {
             const char xx[]= "0123456789ABCDEF";
             while (--n >= 0) xp[n] = xx[(bb[n>>1] >> ((1 - (n&1)) << 2)) & 0xF];
