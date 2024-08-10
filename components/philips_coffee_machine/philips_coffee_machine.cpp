@@ -29,7 +29,7 @@ namespace esphome
                 uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
                 display_uart_.read_array(display_buffer, size);
 
-                ESP_LOGCONFIG(*display_buffer, "Philips Coffee Display to ");
+                ESP_LOGD(TAG, "Display to Mainboard:  %x", display_buffer);
 
                 // Check if a action button is currently performing a long press
                 bool long_pressing = false;
@@ -73,6 +73,8 @@ namespace esphome
                 mainboard_uart_.read_array(mainboard_buffer + 2, size);
 
                 display_uart_.write_array(mainboard_buffer + 2, size);
+
+                ESP_LOGD(TAG, "Mainboard to Display:  %x", mainboard_buffer);
 
                 if (size >= MAINBOARD_BUFFER_SIZE - 2)
                 {
