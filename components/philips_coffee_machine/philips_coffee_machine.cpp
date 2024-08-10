@@ -10,6 +10,13 @@ namespace esphome
     {
 
         static const char *TAG = "philips_coffee_machine";
+        char outBuffer[50];
+
+        void btox(char *xp, const char *bb, int n) 
+        {
+            const char xx[]= "0123456789ABCDEF";
+            while (--n >= 0) xp[n] = xx[(bb[n>>1] >> ((1 - (n&1)) << 2)) & 0xF];
+        }
 
         void PhilipsCoffeeMachine::setup()
         {
@@ -29,7 +36,8 @@ namespace esphome
                 uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
                 display_uart_.read_array(display_buffer, size);
 
-                ESP_LOGD(TAG, "Display to Mainboard:  %x", display_buffer);
+                btox(outBuffer, display_buffer, size);
+                ESP_LOGD(TAG, "Display to Mainboard:  %s", outBuffer);
 
                 // Check if a action button is currently performing a long press
                 bool long_pressing = false;
@@ -74,7 +82,9 @@ namespace esphome
 
                 display_uart_.write_array(mainboard_buffer + 2, size);
 
-                ESP_LOGD(TAG, "Mainboard to Display:  %x", mainboard_buffer);
+                btox(outBuffer, mainboard_buffer, size);
+                ESP_LOGD(TAG, "Mainboard to Display:  %s", outBuffer);
+            
 
                 if (size >= MAINBOARD_BUFFER_SIZE - 2)
                 {
