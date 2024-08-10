@@ -36,7 +36,7 @@ namespace esphome
                 uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
                 display_uart_.read_array(display_buffer, size);
 
-                btox(outBuffer, display_buffer, size);
+                btox(outBuffer, display_buffer, size*2);
                 ESP_LOGD(TAG, "Display to Mainboard:  %s", outBuffer);
 
                 // Check if a action button is currently performing a long press
@@ -82,7 +82,7 @@ namespace esphome
 
                 display_uart_.write_array(mainboard_buffer + 2, size);
 
-                btox(outBuffer, mainboard_buffer, size);
+                btox(outBuffer, mainboard_buffer, size*2);
                 ESP_LOGD(TAG, "Mainboard to Display:  %s", outBuffer);
             
 
