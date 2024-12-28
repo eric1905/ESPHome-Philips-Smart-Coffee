@@ -10,7 +10,10 @@ namespace esphome
     {
 
         static const char *TAG = "philips_coffee_machine";
-        char outBuffer[50];
+        char outBufferDisplay[50];
+        char outBufferMachine[50];
+        char outBufferDisplay2[50];
+        char outBufferMachine2[50];
 
         void btox(char *xp, const uint8_t *bb, int n) 
         {
@@ -36,8 +39,12 @@ namespace esphome
                 uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
                 display_uart_.read_array(display_buffer, size);
 
-                btox(outBuffer, display_buffer, size*2);
-                ESP_LOGD(TAG, "Display to Mainboard:  %s", outBuffer);
+                btox(outBufferDisplay, display_buffer, size*2);
+                outBufferDisplay[size*2] = 0x00;
+                if(strcmp(outBufferDisplay,outBufferDisplay2) != 0) {
+                    ESP_LOGD(TAG, "Display to Mainboard:  %s", outBufferDisplay);
+                }
+                strcpy(outBufferDisplay2,outBufferDisplay);
 
                 // Check if a action button is currently performing a long press
                 bool long_pressing = false;
@@ -82,8 +89,12 @@ namespace esphome
 
                 display_uart_.write_array(mainboard_buffer + 2, size);
 
-                btox(outBuffer, mainboard_buffer, size*2);
-                ESP_LOGD(TAG, "Mainboard to Display:  %s", outBuffer);
+                btox(outBufferMachine, mainboard_buffer, size*2);
+                outBufferMachine[size*2] = 0x00;
+                if(strcmp(outBufferMachine,outBufferMachine2) != 0) {
+                    ESP_LOGD(TAG, "Mainboard to Display:  %s", outBufferMachine);
+                }
+                strcpy(outBufferMachine2,outBufferMachine);
             
 
                 if (size >= MAINBOARD_BUFFER_SIZE - 2)
