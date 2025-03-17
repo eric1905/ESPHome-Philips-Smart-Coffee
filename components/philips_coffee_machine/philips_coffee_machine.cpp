@@ -34,36 +34,36 @@ namespace esphome
             uint8_t mainboard_buffer[MAINBOARD_BUFFER_SIZE];
 
             // Pipe display to mainboard
-            if (display_uart_.available())
-            {
-                uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
-                display_uart_.read_array(display_buffer, size);
+//            if (display_uart_.available())
+//            {
+//                uint8_t size = std::min(display_uart_.available(), DISPLAY_BUFFER_SIZE);
+//                display_uart_.read_array(display_buffer, size);
 
-                btox(outBufferDisplay, display_buffer, size*2);
-                outBufferDisplay[size*2] = 0x00;
-                if(strcmp(outBufferDisplay,outBufferDisplay2) != 0) {
-                    ESP_LOGD(TAG, "Display to Mainboard:  %s", outBufferDisplay);
-                }
-                strcpy(outBufferDisplay2,outBufferDisplay);
+//                btox(outBufferDisplay, display_buffer, size*2);
+//                outBufferDisplay[size*2] = 0x00;
+//                if(strcmp(outBufferDisplay,outBufferDisplay2) != 0) {
+//                    ESP_LOGD(TAG, "Display to Mainboard:  %s", outBufferDisplay);
+//                }
+//                strcpy(outBufferDisplay2,outBufferDisplay);
 
                 // Check if a action button is currently performing a long press
-                bool long_pressing = false;
-#ifdef USE_BUTTON
-                for (philips_action_button::ActionButton *button : action_buttons_)
-                {
-                    if (button->is_long_pressing())
-                    {
-                        long_pressing = true;
-                        break;
-                    }
-                }
-#endif
+//                bool long_pressing = false;
+//#ifdef USE_BUTTON
+//                for (philips_action_button::ActionButton *button : action_buttons_)
+//                {
+//                    if (button->is_long_pressing())
+//                    {
+//                        long_pressing = true;
+//                        break;
+//                    }
+//                }
+//#endif
 
                 // Drop messages if button long-press is currently injecting messages
-                if (!long_pressing)
-                    mainboard_uart_.write_array(display_buffer, size);
-                last_message_from_display_time_ = millis();
-            }
+//                if (!long_pressing)
+//                    mainboard_uart_.write_array(display_buffer, size);
+//                last_message_from_display_time_ = millis();
+//            }
 
             // Read and forward until valid start bytes have been received
             while (mainboard_uart_.available())
@@ -141,12 +141,12 @@ namespace esphome
             }
             else
             {
-#ifdef USE_SWITCH
+//#ifdef USE_SWITCH
                 // Update power switches
-                for (philips_power_switch::Power *power_switch : power_switches_)
-                    power_switch->update_state(true);
-#endif
-            }
+//                for (philips_power_switch::Power *power_switch : power_switches_)
+//                    power_switch->update_state(true);
+//#endif
+//            }
 
             display_uart_.flush();
             mainboard_uart_.flush();
