@@ -146,7 +146,7 @@ namespace esphome
 //                for (philips_power_switch::Power *power_switch : power_switches_)
 //                    power_switch->update_state(true);
 //#endif
-//            }
+            }
 
             display_uart_.flush();
             mainboard_uart_.flush();
